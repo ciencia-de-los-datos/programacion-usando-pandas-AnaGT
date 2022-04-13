@@ -15,6 +15,7 @@ tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 
 
 def pregunta_01():
+    longitud =len(tbl0)
     """
     ¿Cuál es la cantidad de filas en la tabla `tbl0.tsv`?
 
@@ -22,10 +23,10 @@ def pregunta_01():
     40
 
     """
-    return
-
+    return longitud
 
 def pregunta_02():
+    columnas= len(tbl0.columns)
     """
     ¿Cuál es la cantidad de columnas en la tabla `tbl0.tsv`?
 
@@ -33,10 +34,11 @@ def pregunta_02():
     4
 
     """
-    return
+    return columnas
 
 
 def pregunta_03():
+    gruposcol1 = tbl0.groupby("_c1")["_c1"].count()
     """
     ¿Cuál es la cantidad de registros por cada letra de la columna _c1 del archivo
     `tbl0.tsv`?
@@ -50,10 +52,11 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    return gruposcol1
 
 
 def pregunta_04():
+    promedio = tbl0.groupby("_c1")["_c2"].mean()
     """
     Calcule el promedio de _c2 por cada letra de la _c1 del archivo `tbl0.tsv`.
 
@@ -65,10 +68,11 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    return promedio
 
 
 def pregunta_05():
+    maximo = tbl0.groupby("_c1")["_c2"].max()
     """
     Calcule el valor máximo de _c2 por cada letra en la columna _c1 del archivo
     `tbl0.tsv`.
@@ -82,10 +86,15 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    return maximo
 
 
 def pregunta_06():
+    c4= tbl1["_c4"].unique()
+    lista=[]
+    for value in c4:
+        valor=value[0]
+        lista.append(valor.upper())
     """
     Retorne una lista con los valores unicos de la columna _c4 de del archivo `tbl1.csv`
     en mayusculas y ordenados alfabéticamente.
@@ -94,10 +103,11 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    return sorted(lista)
 
 
 def pregunta_07():
+    suma = tbl0.groupby("_c1")["_c2"].sum()
     """
     Calcule la suma de la _c2 por cada letra de la _c1 del archivo `tbl0.tsv`.
 
@@ -110,10 +120,12 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    return suma
 
 
 def pregunta_08():
+    suma= tbl0["_c0"] + tbl0["_c2"]
+    tbl0['suma'] = suma
     """
     Agregue una columna llamada `suma` con la suma de _c0 y _c2 al archivo `tbl0.tsv`.
 
@@ -128,10 +140,13 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    return tbl0
 
 
 def pregunta_09():
+    year = pd.DataFrame({"fechas": tbl0['_c3']})
+    year.fechas = year.fechas.str.split("-", n=1).str[0]
+    tbl0['year'] = year
     """
     Agregue el año como una columna al archivo `tbl0.tsv`.
 
@@ -146,7 +161,7 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    return tbl0
 
 
 def pregunta_10():
