@@ -166,6 +166,9 @@ def pregunta_09():
 
 
 def pregunta_10():
+    tbl0['_c2']=tbl0['_c2'].astype('str')
+    tbl0=tbl0.groupby('_c1').agg(':'.join)[['_c2']]
+    tbl0['_c2']=tbl0['_c2'].apply(lambda x: ':'.join((sorted(x.split(':')))))
     """
     Construya una tabla que contenga _c1 y una lista separada por ':' de los valores de
     la columna _c2 para el archivo `tbl0.tsv`.
@@ -179,10 +182,15 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    return tbl0
 
 
 def pregunta_11():
+    tabla1=tbl1.groupby("_c0")["_c4"].agg(','.join)
+    tabla1=tabla1.reset_index()
+    tabla1['_c4']=tabla1['_c4'].apply(lambda x: ','.join((sorted(x.split(',')))))
+
+
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c4 del archivo `tbl1.tsv`.
@@ -198,7 +206,7 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    return tabla1
 
 
 def pregunta_12():
