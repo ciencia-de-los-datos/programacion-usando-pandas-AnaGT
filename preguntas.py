@@ -15,6 +15,7 @@ tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
 
 
 def pregunta_01():
+    longitud=len(tbl0)
     """
     ¿Cuál es la cantidad de filas en la tabla `tbl0.tsv`?
 
@@ -22,7 +23,7 @@ def pregunta_01():
     40
 
     """
-    return
+    return longitud
 
 
 def pregunta_02():
