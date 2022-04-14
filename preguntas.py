@@ -186,7 +186,6 @@ def pregunta_10():
     """
     return tabla10
 
-
 def pregunta_11():
     tabla1=tbl1.groupby("_c0")["_c4"].agg(','.join)
     tabla1=tabla1.reset_index()
@@ -212,6 +211,13 @@ def pregunta_11():
 
 
 def pregunta_12():
+    tbl2["_c5b"]=tbl2["_c5b"].astype("str")
+    df = pd.DataFrame(tbl2,columns=['_c0','_c5a','_c5b']) 
+    df['_c5'] = df['_c5a'] + ":" + df['_c5b']
+    tabla12=df.groupby("_c0")["_c5"].agg(','.join)
+    tabla12=tabla12.reset_index()
+    tabla12['_c5']=tabla12['_c5'].apply(lambda x: ','.join((sorted(x.split(',')))))
+    
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
     la columna _c5a y _c5b (unidos por ':') de la tabla `tbl2.tsv`.
@@ -226,10 +232,13 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    return tabla12
 
 
 def pregunta_13():
+    suma = tbl2.groupby("_c0")["_c5b"].sum()
+    tbl0["_c5b"]=suma
+    total= tbl0.groupby("_c1")["_c5b"].sum()
     """
     Si la columna _c0 es la clave en los archivos `tbl0.tsv` y `tbl2.tsv`, compute la
     suma de tbl2._c5b por cada valor en tbl0._c1.
@@ -243,4 +252,4 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    return total
